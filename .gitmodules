@@ -1,0 +1,3 @@
+[submodule "UsefulBits"]
+	path = UsefulBits
+	url = https://github.com/EverythingSolution/UsefulBits.git

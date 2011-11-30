@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F57988011486C8C90057BC12 /* ESDebugConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F57988001486C8C90057BC12 /* ESDebugConsole.m */; };
 		F5FBA4081485BF8C003DEF69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FBA4071485BF8C003DEF69 /* UIKit.framework */; };
 		F5FBA40A1485BF8C003DEF69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FBA4091485BF8C003DEF69 /* Foundation.framework */; };
 		F5FBA40C1485BF8C003DEF69 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FBA40B1485BF8C003DEF69 /* CoreGraphics.framework */; };
 		F5FBA4121485BF8C003DEF69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5FBA4101485BF8C003DEF69 /* InfoPlist.strings */; };
 		F5FBA4141485BF8C003DEF69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBA4131485BF8C003DEF69 /* main.m */; };
 		F5FBA4181485BF8C003DEF69 /* ESAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBA4171485BF8C003DEF69 /* ESAppDelegate.m */; };
-		F5FBA4201485BFC9003DEF69 /* ESDebugConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBA41F1485BFC9003DEF69 /* ESDebugConsole.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F57987FF1486C8C90057BC12 /* ESDebugConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDebugConsole.h; sourceTree = "<group>"; };
+		F57988001486C8C90057BC12 /* ESDebugConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDebugConsole.m; sourceTree = "<group>"; };
 		F5FBA4031485BF8C003DEF69 /* Debuggery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debuggery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FBA4071485BF8C003DEF69 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F5FBA4091485BF8C003DEF69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -27,8 +29,6 @@
 		F5FBA4151485BF8C003DEF69 /* Debuggery-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Debuggery-Prefix.pch"; sourceTree = "<group>"; };
 		F5FBA4161485BF8C003DEF69 /* ESAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESAppDelegate.h; sourceTree = "<group>"; };
 		F5FBA4171485BF8C003DEF69 /* ESAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESAppDelegate.m; sourceTree = "<group>"; };
-		F5FBA41E1485BFC9003DEF69 /* ESDebugConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDebugConsole.h; sourceTree = "<group>"; };
-		F5FBA41F1485BFC9003DEF69 /* ESDebugConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDebugConsole.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,9 +45,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F57987FE1486C8C90057BC12 /* ESDebugConsole */ = {
+			isa = PBXGroup;
+			children = (
+				F57987FF1486C8C90057BC12 /* ESDebugConsole.h */,
+				F57988001486C8C90057BC12 /* ESDebugConsole.m */,
+			);
+			name = ESDebugConsole;
+			path = UsefulBits/ESDebugConsole;
+			sourceTree = "<group>";
+		};
 		F5FBA3F81485BF8C003DEF69 = {
 			isa = PBXGroup;
 			children = (
+				F57987FE1486C8C90057BC12 /* ESDebugConsole */,
 				F5FBA40D1485BF8C003DEF69 /* Debuggery */,
 				F5FBA4061485BF8C003DEF69 /* Frameworks */,
 				F5FBA4041485BF8C003DEF69 /* Products */,
@@ -77,8 +88,6 @@
 			children = (
 				F5FBA4161485BF8C003DEF69 /* ESAppDelegate.h */,
 				F5FBA4171485BF8C003DEF69 /* ESAppDelegate.m */,
-				F5FBA41E1485BFC9003DEF69 /* ESDebugConsole.h */,
-				F5FBA41F1485BFC9003DEF69 /* ESDebugConsole.m */,
 				F5FBA40E1485BF8C003DEF69 /* Supporting Files */,
 			);
 			path = Debuggery;
@@ -159,7 +168,7 @@
 			files = (
 				F5FBA4141485BF8C003DEF69 /* main.m in Sources */,
 				F5FBA4181485BF8C003DEF69 /* ESAppDelegate.m in Sources */,
-				F5FBA4201485BFC9003DEF69 /* ESDebugConsole.m in Sources */,
+				F57988011486C8C90057BC12 /* ESDebugConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +274,7 @@
 				F5FBA41D1485BF8C003DEF69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
