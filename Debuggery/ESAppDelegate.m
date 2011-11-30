@@ -33,6 +33,8 @@
 	
 	[ESDebugConsole sharedDebugConsole];
 	
+	NSLog(@"Launched");
+	
     return YES;
 }
 

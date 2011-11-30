@@ -20,10 +20,6 @@
 #import "ESDebugConsole.h"
 #import <asl.h>
 
-NSString *const applicationIdentifierKey = @"Facility";
-NSString *const messageKey = @"Message";
-NSString *const timeKey = @"Time";
-
 #if !__has_feature(objc_arc)
 #define NO_ARC(noarccode) noarccode
 #else
@@ -39,20 +35,22 @@ NSString *const timeKey = @"Time";
 @end
 
 //http://www.cocoanetics.com/2011/03/accessing-the-ios-system-log/
-static NSArray * getConsole(void)
+//http://developer.apple.com/library/ios/#documentation/System/Conceptual/ManPages_iPhoneOS/man3/asl.3.html#//apple_ref/doc/man/3/asl
+static NSArray * getConsole(BOOL constrainToCurrentApp)
 {
 	aslmsg q, m;
 	int i;
 	const char *key, *val;
 	NSMutableArray *consoleLog;
 	NSString *applicationIdentifier;
+	NSString *applicationIdentifierKey;
 	
 	q = asl_new(ASL_TYPE_QUERY);
 	
 	consoleLog = [NSMutableArray new];
 	
 	applicationIdentifier = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleIdentifierKey];
-	
+	applicationIdentifierKey = [NSString stringWithCString:ASL_KEY_FACILITY encoding:NSUTF8StringEncoding];
 	aslresponse r = asl_search(NULL, q);
 	while (NULL != (m = aslresponse_next(r)))
 	{
@@ -70,17 +68,19 @@ static NSArray * getConsole(void)
 				[tmpDict setObject:string forKey:keyString];
 		}
 		
-		if ([[tmpDict objectForKey:applicationIdentifierKey] isEqualToString:applicationIdentifier])
+		if (constrainToCurrentApp && ![[tmpDict objectForKey:applicationIdentifierKey] isEqualToString:applicationIdentifier])
+			continue;
+		
+		ESConsoleEntry *entry = [[ESConsoleEntry alloc] initWithDictionary:tmpDict];
+		if (entry != nil)
 		{
-			ESConsoleEntry *entry = [[ESConsoleEntry alloc] initWithDictionary:tmpDict];
-			if (entry != nil)
-			{
-				[consoleLog addObject:entry];
-				NO_ARC([entry release];)
-			}
+			[consoleLog addObject:entry];
+			NO_ARC([entry release];)
 		}
 	}
 	aslresponse_free(r);
+	
+	[consoleLog sortUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO], nil]];
 	
 	NSArray *retVal = [NSArray arrayWithArray:consoleLog];
 	
@@ -181,7 +181,7 @@ static NSArray * getConsole(void)
 	if (fabsf(gestureRecognizer.rotation) < M_PI)
 		return;
 	
-	self.debugTableViewController.logs = getConsole();
+	self.debugTableViewController.logs = getConsole(YES);
 	[self.debugTableViewController.tableView reloadData];
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 	{
@@ -235,6 +235,16 @@ static NSArray * getConsole(void)
 
 #pragma mark -
 
+//#define ASL_KEY_TIME      "Time"
+//#define ASL_KEY_HOST      "Host"
+//#define ASL_KEY_SENDER    "Sender"
+//#define ASL_KEY_FACILITY  "Facility"
+//#define ASL_KEY_PID       "PID"
+//#define ASL_KEY_UID       "UID"
+//#define ASL_KEY_GID       "GID"
+//#define ASL_KEY_LEVEL     "Level"
+//#define ASL_KEY_MSG       "Message"
+
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
@@ -247,13 +257,13 @@ static NSArray * getConsole(void)
 			return nil;
 		}
 		
-		self.message = [dictionary objectForKey:messageKey];
+		self.message = [dictionary objectForKey:[NSString stringWithCString:ASL_KEY_MSG encoding:NSUTF8StringEncoding]];
 		if (self.message.length > 400)
 			self.shortMessage = [self.message substringToIndex:400];
 		else
 			self.shortMessage = self.message;
-		self.applicationIdentifier = [dictionary objectForKey:applicationIdentifierKey];
-		self.date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:timeKey] doubleValue]];
+		self.applicationIdentifier = [dictionary objectForKey:[NSString stringWithCString:ASL_KEY_FACILITY encoding:NSUTF8StringEncoding]];
+		self.date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:[NSString stringWithCString:ASL_KEY_TIME encoding:NSUTF8StringEncoding]] doubleValue]];
 	}
 	return self;
 }
@@ -305,6 +315,13 @@ static NSArray * getConsole(void)
 		self.navigationItem.rightBarButtonItem = doneButton;
 		NO_ARC([doneButton release];)
 	}
+	
+	UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Current", @"All", nil]];
+	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	segmentedControl.selectedSegmentIndex = 0;
+	[segmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
+	self.tableView.tableHeaderView = segmentedControl;
+	NO_ARC([segmentedControl release];)
 }
 
 #pragma mark - 
@@ -315,6 +332,21 @@ static NSArray * getConsole(void)
 		[self dismissViewControllerAnimated:YES completion:nil];
 	else
 		[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)segmentedControlChanged:(UISegmentedControl *)sender
+{
+	switch ([sender selectedSegmentIndex]) {
+		case 0:
+			self.logs = getConsole(YES);
+			break;
+		case 1:
+			self.logs = getConsole(NO);
+			break;
+		default:
+			break;
+	}
+	[self.tableView reloadData];
 }
 
 #pragma mark - 
