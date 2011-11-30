@@ -13,6 +13,7 @@
 		F5FBA4121485BF8C003DEF69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5FBA4101485BF8C003DEF69 /* InfoPlist.strings */; };
 		F5FBA4141485BF8C003DEF69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBA4131485BF8C003DEF69 /* main.m */; };
 		F5FBA4181485BF8C003DEF69 /* ESAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBA4171485BF8C003DEF69 /* ESAppDelegate.m */; };
+		F5FBA4201485BFC9003DEF69 /* ESDebugConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBA41F1485BFC9003DEF69 /* ESDebugConsole.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +21,14 @@
 		F5FBA4071485BF8C003DEF69 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F5FBA4091485BF8C003DEF69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F5FBA40B1485BF8C003DEF69 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F5FBA40F1485BF8C003DEF69 /* Debuggery-Info.plist */ = {isa = PBXFileReference; path = "Debuggery-Info.plist"; sourceTree = "<group>"; };
+		F5FBA40F1485BF8C003DEF69 /* Debuggery-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Debuggery-Info.plist"; sourceTree = "<group>"; };
 		F5FBA4111485BF8C003DEF69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F5FBA4131485BF8C003DEF69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F5FBA4151485BF8C003DEF69 /* Debuggery-Prefix.pch */ = {isa = PBXFileReference; path = "Debuggery-Prefix.pch"; sourceTree = "<group>"; };
-		F5FBA4161485BF8C003DEF69 /* ESAppDelegate.h */ = {isa = PBXFileReference; path = ESAppDelegate.h; sourceTree = "<group>"; };
+		F5FBA4151485BF8C003DEF69 /* Debuggery-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Debuggery-Prefix.pch"; sourceTree = "<group>"; };
+		F5FBA4161485BF8C003DEF69 /* ESAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESAppDelegate.h; sourceTree = "<group>"; };
 		F5FBA4171485BF8C003DEF69 /* ESAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESAppDelegate.m; sourceTree = "<group>"; };
+		F5FBA41E1485BFC9003DEF69 /* ESDebugConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDebugConsole.h; sourceTree = "<group>"; };
+		F5FBA41F1485BFC9003DEF69 /* ESDebugConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDebugConsole.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,8 @@
 			children = (
 				F5FBA4161485BF8C003DEF69 /* ESAppDelegate.h */,
 				F5FBA4171485BF8C003DEF69 /* ESAppDelegate.m */,
+				F5FBA41E1485BFC9003DEF69 /* ESDebugConsole.h */,
+				F5FBA41F1485BFC9003DEF69 /* ESDebugConsole.m */,
 				F5FBA40E1485BF8C003DEF69 /* Supporting Files */,
 			);
 			path = Debuggery;
@@ -154,6 +159,7 @@
 			files = (
 				F5FBA4141485BF8C003DEF69 /* main.m in Sources */,
 				F5FBA4181485BF8C003DEF69 /* ESAppDelegate.m in Sources */,
+				F5FBA4201485BFC9003DEF69 /* ESDebugConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

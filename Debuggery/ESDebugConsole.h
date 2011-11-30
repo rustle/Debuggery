@@ -1,5 +1,5 @@
 //
-//  main.m
+//  ESDebugConsole.h
 //
 //  Created by Doug Russell on 4/26/10.
 //  Copyright Doug Russell 2010. All rights reserved.
@@ -17,13 +17,10 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#import "ESAppDelegate.h"
+@interface ESDebugConsole : NSObject
 
-int main(int argc, char *argv[])
-{
-	@autoreleasepool {
-	    return UIApplicationMain(argc, argv, nil, NSStringFromClass([ESAppDelegate class]));
-	}
-}
++ (id)sharedDebugConsole;
+
+@end
