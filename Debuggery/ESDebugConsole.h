@@ -1,8 +1,7 @@
 //
 //  ESDebugConsole.h
 //
-//  Created by Doug Russell on 4/26/10.
-//  Copyright Doug Russell 2010. All rights reserved.
+//  Copyright Doug Russell 2011. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,5 +21,9 @@
 @interface ESDebugConsole : NSObject
 
 + (id)sharedDebugConsole;
+
+// Gesture recognizer will by default be a rotation gesture recognizer attached to the window
+// If you set your own it's target must be [ESDebugConsole sharedDebugConsole] with action gestureRecognized:
+@property (nonatomic, retain) UIGestureRecognizer *gestureRecognizer;
 
 @end

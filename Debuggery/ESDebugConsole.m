@@ -1,8 +1,7 @@
 //
 //  ESDebugConsole.m
 //
-//  Created by Doug Russell on 4/26/10.
-//  Copyright Doug Russell 2010. All rights reserved.
+//  Copyright Doug Russell 2011. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -116,6 +115,7 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 @synthesize popoverController=_popoverController;
 @synthesize navigationController=_navigationController;
 @synthesize debugTableViewController=_debugTableViewController;
+@synthesize gestureRecognizer=_gestureRecognizer;
 
 #pragma mark - 
 
@@ -156,6 +156,8 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 	}
 	self.window = window;
 	UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognized:)];
+	rotationGesture.cancelsTouchesInView = NO;
+	self.gestureRecognizer = rotationGesture;
 	[window addGestureRecognizer:rotationGesture];
 	NO_ARC([rotationGesture release];)
 }
@@ -167,18 +169,16 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 		   [_popoverController release];
 		   [_navigationController release];
 		   [_debugTableViewController release];
+		   [_gestureRecognizer release];
 		   [super dealloc];
 		   )
 }
 
 #pragma mark - 
 
-- (void)gestureRecognized:(UIRotationGestureRecognizer *)gestureRecognizer
+- (void)gestureRecognized:(UIGestureRecognizer *)gestureRecognizer
 {
 	if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
-		return;
-	
-	if (fabsf(gestureRecognizer.rotation) < M_PI)
 		return;
 	
 	self.debugTableViewController.logs = getConsole(YES);
@@ -223,6 +223,20 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 		_debugTableViewController = [ESDebugTableViewController new];
 	}
 	return _debugTableViewController;
+}
+
+- (void)setGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+{
+	if (_gestureRecognizer != gestureRecognizer)
+	{
+		if (_gestureRecognizer != nil)
+			[_gestureRecognizer.view removeGestureRecognizer:_gestureRecognizer];
+		NO_ARC(
+			   [_gestureRecognizer release];
+			   [gestureRecognizer retain];
+			   )
+		_gestureRecognizer = gestureRecognizer;
+	}
 }
 
 @end
