@@ -25,6 +25,16 @@
 #define NO_ARC(noarccode) 
 #endif
 
+//#define ASL_KEY_TIME      "Time"
+//#define ASL_KEY_HOST      "Host"
+//#define ASL_KEY_SENDER    "Sender"
+//#define ASL_KEY_FACILITY  "Facility"
+//#define ASL_KEY_PID       "PID"
+//#define ASL_KEY_UID       "UID"
+//#define ASL_KEY_GID       "GID"
+//#define ASL_KEY_LEVEL     "Level"
+//#define ASL_KEY_MSG       "Message"
+
 @interface ESConsoleEntry : NSObject 
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) NSString *shortMessage;
@@ -61,10 +71,13 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 			
 			val = asl_get(m, key);
 			
-			NSString *string = [NSString stringWithUTF8String:val];
-			
-			if (string != nil)
-				[tmpDict setObject:string forKey:keyString];
+			if (val != NULL)
+			{
+				NSString *string = [NSString stringWithUTF8String:val];
+				
+				if (string != nil)
+					[tmpDict setObject:string forKey:keyString];
+			}
 		}
 		
 		if (constrainToCurrentApp && ![[tmpDict objectForKey:applicationIdentifierKey] isEqualToString:applicationIdentifier])
@@ -108,7 +121,7 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 @property (nonatomic, retain) UIPopoverController *popoverController;
 @property (nonatomic, retain) UINavigationController *navigationController;
 @property (nonatomic, retain) ESDebugTableViewController *debugTableViewController;
-- (void)activate;
+- (void)commonInit;
 @end
 
 @implementation ESDebugConsole
@@ -135,12 +148,12 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 	self = [super init];
 	if (self)
 	{
-		[self activate];
+		[self commonInit];
 	}
 	return self;
 }
 
-- (void)activate
+- (void)commonInit
 {
 	UIWindow* window = [UIApplication sharedApplication].keyWindow;
 	if (!window)
@@ -161,6 +174,8 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 	self.gestureRecognizer = rotationGesture;
 	[window addGestureRecognizer:rotationGesture];
 	NO_ARC([rotationGesture release];)
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lowMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 }
 
 - (void)dealloc
@@ -173,6 +188,20 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 		   [_gestureRecognizer release];
 		   [super dealloc];
 		   )
+}
+
+#pragma mark - 
+
+- (void)lowMemoryWarning:(NSNotification *)notification
+{
+	[self.popoverController dismissPopoverAnimated:NO];
+	if ([self.debugTableViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+		[self.debugTableViewController dismissViewControllerAnimated:YES completion:nil];
+	else
+		[self.debugTableViewController dismissModalViewControllerAnimated:YES];
+	self.popoverController = nil;
+	self.navigationController = nil;
+	self.debugTableViewController = nil;
 }
 
 #pragma mark - 
@@ -203,6 +232,8 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 {
 	if (_popoverController == nil)
 	{
+		if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad)
+			return nil;
 		_popoverController = [[UIPopoverController alloc] initWithContentViewController:self.navigationController];
 	}
 	return _popoverController;
@@ -249,16 +280,6 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 @synthesize date=_date;
 
 #pragma mark -
-
-//#define ASL_KEY_TIME      "Time"
-//#define ASL_KEY_HOST      "Host"
-//#define ASL_KEY_SENDER    "Sender"
-//#define ASL_KEY_FACILITY  "Facility"
-//#define ASL_KEY_PID       "PID"
-//#define ASL_KEY_UID       "UID"
-//#define ASL_KEY_GID       "GID"
-//#define ASL_KEY_LEVEL     "Level"
-//#define ASL_KEY_MSG       "Message"
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
