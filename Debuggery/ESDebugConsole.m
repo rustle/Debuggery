@@ -90,6 +90,7 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 
 @interface ESDebugTableViewController : UITableViewController
 @property (nonatomic, retain) NSArray *logs;
+@property (nonatomic, retain) UISegmentedControl *segmentedControl;
 @end
 
 @interface ESDebugTableViewCell : UITableViewCell
@@ -181,7 +182,7 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 	if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
 		return;
 	
-	self.debugTableViewController.logs = getConsole(YES);
+	self.debugTableViewController.logs = getConsole((self.debugTableViewController.segmentedControl.selectedSegmentIndex == 0) ? YES : NO);
 	[self.debugTableViewController.tableView reloadData];
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 	{
@@ -304,6 +305,7 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 
 @implementation ESDebugTableViewController
 @synthesize logs=_logs;
+@synthesize segmentedControl=_segmentedControl;
 
 #pragma mark - 
 
@@ -311,6 +313,7 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 {
 	NO_ARC(
 		   [_logs release];
+		   [_segmentedControl release];
 		   [super dealloc];
 		   )
 }
@@ -330,12 +333,23 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 		NO_ARC([doneButton release];)
 	}
 	
+	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.navigationItem.leftBarButtonItem = refreshButton;
+	NO_ARC([refreshButton release];)
+	
 	UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Current", @"All", nil]];
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	segmentedControl.selectedSegmentIndex = 0;
 	[segmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
+	self.segmentedControl = segmentedControl;
 	self.tableView.tableHeaderView = segmentedControl;
 	NO_ARC([segmentedControl release];)
+}
+
+- (void)viewDidUnload
+{
+	[super viewDidUnload];
+	self.segmentedControl = nil;
 }
 
 #pragma mark - 
@@ -346,6 +360,12 @@ static NSArray * getConsole(BOOL constrainToCurrentApp)
 		[self dismissViewControllerAnimated:YES completion:nil];
 	else
 		[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)refresh:(id)sender
+{
+	self.logs = getConsole((self.segmentedControl.selectedSegmentIndex == 0) ? YES : NO);
+	[self.tableView reloadData];
 }
 
 - (void)segmentedControlChanged:(UISegmentedControl *)sender
