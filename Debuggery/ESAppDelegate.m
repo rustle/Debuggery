@@ -30,7 +30,8 @@
 	self.window.rootViewController = [UIViewController new];
     [self.window makeKeyAndVisible];
 	
-	[ESDebugConsole sharedDebugConsole];
+	// getting the console will initialize and then we set the content size for popovers
+	[[ESDebugConsole sharedDebugConsole] setConsoleSizeInPopover:CGSizeMake(320, 480)];
 	
 	NSLog(@"Launched");
 	
