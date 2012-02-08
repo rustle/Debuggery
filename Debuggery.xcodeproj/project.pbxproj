@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9121EA5114E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 9121EA5014E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.m */; };
+		9121EA5514E2EFCF00EF2C84 /* ESConsoleEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9121EA5414E2EFCF00EF2C84 /* ESConsoleEntry.m */; };
+		9121EA5814E2FCF500EF2C84 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9121EA5714E2FCF500EF2C84 /* MessageUI.framework */; };
+		9121EA5B14E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9121EA5A14E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.m */; };
 		F57988011486C8C90057BC12 /* ESDebugConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = F57988001486C8C90057BC12 /* ESDebugConsole.m */; };
 		F5FBA4081485BF8C003DEF69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FBA4071485BF8C003DEF69 /* UIKit.framework */; };
 		F5FBA40A1485BF8C003DEF69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FBA4091485BF8C003DEF69 /* Foundation.framework */; };
@@ -17,6 +21,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9121EA4F14E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESDebugConsole+iOS_GUI.h"; sourceTree = "<group>"; };
+		9121EA5014E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ESDebugConsole+iOS_GUI.m"; sourceTree = "<group>"; };
+		9121EA5314E2EFCF00EF2C84 /* ESConsoleEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESConsoleEntry.h; sourceTree = "<group>"; };
+		9121EA5414E2EFCF00EF2C84 /* ESConsoleEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESConsoleEntry.m; sourceTree = "<group>"; };
+		9121EA5614E2F8EE00EF2C84 /* ARCLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARCLogic.h; path = UsefulBits/Macros/ARCLogic.h; sourceTree = SOURCE_ROOT; };
+		9121EA5714E2FCF500EF2C84 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		9121EA5914E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ESDebugConsole+iOS_Mail.h"; sourceTree = "<group>"; };
+		9121EA5A14E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ESDebugConsole+iOS_Mail.m"; sourceTree = "<group>"; };
 		F57987FF1486C8C90057BC12 /* ESDebugConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDebugConsole.h; sourceTree = "<group>"; };
 		F57988001486C8C90057BC12 /* ESDebugConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDebugConsole.m; sourceTree = "<group>"; };
 		F5FBA4031485BF8C003DEF69 /* Debuggery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debuggery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9121EA5814E2FCF500EF2C84 /* MessageUI.framework in Frameworks */,
 				F5FBA4081485BF8C003DEF69 /* UIKit.framework in Frameworks */,
 				F5FBA40A1485BF8C003DEF69 /* Foundation.framework in Frameworks */,
 				F5FBA40C1485BF8C003DEF69 /* CoreGraphics.framework in Frameworks */,
@@ -48,8 +61,15 @@
 		F57987FE1486C8C90057BC12 /* ESDebugConsole */ = {
 			isa = PBXGroup;
 			children = (
+				9121EA5614E2F8EE00EF2C84 /* ARCLogic.h */,
 				F57987FF1486C8C90057BC12 /* ESDebugConsole.h */,
 				F57988001486C8C90057BC12 /* ESDebugConsole.m */,
+				9121EA4F14E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.h */,
+				9121EA5014E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.m */,
+				9121EA5914E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.h */,
+				9121EA5A14E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.m */,
+				9121EA5314E2EFCF00EF2C84 /* ESConsoleEntry.h */,
+				9121EA5414E2EFCF00EF2C84 /* ESConsoleEntry.m */,
 			);
 			name = ESDebugConsole;
 			path = UsefulBits/ESDebugConsole;
@@ -76,6 +96,7 @@
 		F5FBA4061485BF8C003DEF69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9121EA5714E2FCF500EF2C84 /* MessageUI.framework */,
 				F5FBA4071485BF8C003DEF69 /* UIKit.framework */,
 				F5FBA4091485BF8C003DEF69 /* Foundation.framework */,
 				F5FBA40B1485BF8C003DEF69 /* CoreGraphics.framework */,
@@ -169,6 +190,9 @@
 				F5FBA4141485BF8C003DEF69 /* main.m in Sources */,
 				F5FBA4181485BF8C003DEF69 /* ESAppDelegate.m in Sources */,
 				F57988011486C8C90057BC12 /* ESDebugConsole.m in Sources */,
+				9121EA5114E2EF4200EF2C84 /* ESDebugConsole+iOS_GUI.m in Sources */,
+				9121EA5514E2EFCF00EF2C84 /* ESConsoleEntry.m in Sources */,
+				9121EA5B14E2FD2000EF2C84 /* ESDebugConsole+iOS_Mail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +216,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -218,7 +241,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -236,10 +258,12 @@
 		F5FBA41C1485BF8C003DEF69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Doug Russell (U77D7975SM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Debuggery/Debuggery-Prefix.pch";
 				INFOPLIST_FILE = "Debuggery/Debuggery-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BE9163E6-EEAF-4FAC-97C5-99523B0D3DA7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

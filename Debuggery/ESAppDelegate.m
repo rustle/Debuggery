@@ -18,9 +18,10 @@
 
 #import "ESAppDelegate.h"
 #import "ESDebugConsole.h"
+#import "ESDebugConsole+iOS_GUI.h"
+#import "ESDebugConsole+iOS_Mail.h"
 
 @implementation ESAppDelegate
-
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,8 +31,12 @@
 	self.window.rootViewController = [UIViewController new];
     [self.window makeKeyAndVisible];
 	
-	// getting the console will initialize and then we set the content size for popovers
-	[[ESDebugConsole sharedDebugConsole] setConsoleSizeInPopover:CGSizeMake(320, 480)];
+	ESDebugConsole *console = [ESDebugConsole sharedDebugConsole];
+	[console setConsoleSizeInPopover:CGSizeMake(320, 480)];
+	[console setRecipients:[NSArray arrayWithObjects:@"doug@blackpixel.com", nil]];
+	[console setSubject:@"Console Logs"];
+	
+//	NSLog(@"%@", [console objectForKey:kESDebugConsoleAllLogsKey]);
 	
 	NSLog(@"Launched");
 	
