@@ -33,14 +33,26 @@
 	
 	ESDebugConsole *console = [ESDebugConsole sharedDebugConsole];
 	[console setConsoleSizeInPopover:CGSizeMake(320, 480)];
-	[console setRecipients:[NSArray arrayWithObjects:@"doug@blackpixel.com", nil]];
+	[console setRecipients:[NSArray arrayWithObjects:@"youremail@yourwebsite.com", nil]];
 	[console setSubject:@"Console Logs"];
-	
-//	NSLog(@"%@", [console objectForKey:kESDebugConsoleAllLogsKey]);
 	
 	NSLog(@"Launched");
 	
+	[self tapped];
+	
+	UILabel *label = [[UILabel alloc] initWithFrame:self.window.rootViewController.view.bounds];
+	label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	label.text = @"Tap anywhere to open log view";
+	[self.window.rootViewController.view addSubview:label];
+	
+	[self.window.rootViewController.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)]];
+	
     return YES;
+}
+
+- (void)tapped
+{
+	[[ESDebugConsole sharedDebugConsole] showFromView:self.window.rootViewController.view];
 }
 
 @end
