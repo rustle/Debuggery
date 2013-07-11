@@ -22,7 +22,6 @@
 #import "ESDebugConsole+iOS_Mail.h"
 
 @implementation ESAppDelegate
-@synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,24 +34,18 @@
 	[console setConsoleSizeInPopover:CGSizeMake(320, 480)];
 	[console setRecipients:[NSArray arrayWithObjects:@"youremail@yourwebsite.com", nil]];
 	[console setSubject:@"Console Logs"];
-	
-	NSLog(@"Launched");
-	
-	[self tapped];
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:console action:@selector(gestureRecognized:)];
+	[console setGestureRecognizer:tap];
+	[self.window.rootViewController.view addGestureRecognizer:tap];
 	
 	UILabel *label = [[UILabel alloc] initWithFrame:self.window.rootViewController.view.bounds];
 	label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 	label.text = @"Tap anywhere to open log view";
 	[self.window.rootViewController.view addSubview:label];
 	
-	[self.window.rootViewController.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)]];
+	NSLog(@"Launched");
 	
     return YES;
-}
-
-- (void)tapped
-{
-	[[ESDebugConsole sharedDebugConsole] showFromView:self.window.rootViewController.view];
 }
 
 @end
