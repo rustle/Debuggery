@@ -4,7 +4,7 @@ The sample app debuggery is meant to show how to use ESDebugConsole, but it's al
 
 ##Get the code
 
-git clone https://github.com/EverythingSolution/Debuggery.git
+git clone https://github.com/rustle/Debuggery.git
 
 cd Debuggery
 
